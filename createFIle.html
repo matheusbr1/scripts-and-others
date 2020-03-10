@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <!-- <textarea name="Filecontent" id="Filecontent" cols="30" rows="10"></textarea>
+    <br>
+    <button type="submit" onclick="createFile()" >Create</button>
+    <hr> -->
+
+    <textarea id="text-val" rows="4">Content</textarea><br/>
+    <input type="text" placeholder="name" id="name" >
+    <input type="button" id="dwn-btn" value="Create"/>
+
+</body>
+<script>
+
+const createFile = () => {
+    // Function to download data to a file
+    function create(data, filename) {
+        var file = new Blob([data], {type: 'html'});
+        if (window.navigator.msSaveOrOpenBlob) // IE10+
+            window.navigator.msSaveOrOpenBlob(file, filename);
+        else { // Others
+            var a = document.createElement("a"),
+            url = URL.createObjectURL(file);
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            setTimeout(function() {
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);  
+            }, 0); 
+        }
+    }
+
+    data = document.getElementById('Filecontent').value
+    create(data, 'emkt')
+    console.log('ok')
+}
+
+// Function 2
+function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+}
+
+// Start file download.
+document.getElementById("dwn-btn").addEventListener("click", function(){
+    // Generate download of hello.txt file with some content
+    var text = document.getElementById("text-val").value;
+    var filename = document.getElementById('name').value || 'e-mail-marketing.html'
+    
+    download(filename, text);
+}, false);
+
+</script>
+
+</html>
