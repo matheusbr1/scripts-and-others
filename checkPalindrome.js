@@ -9,7 +9,7 @@ function checkPalindrome(inputString) {
         output += string[i]
     }
 
-    return (output === inputString)
+    return (output === inputString || output.toUpperCase() === output)
 }
 
 const input = 'matheus'
