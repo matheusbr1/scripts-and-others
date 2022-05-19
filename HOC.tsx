@@ -1,4 +1,3 @@
-/* eslint-disable react/display-name */
 import React from 'react'
 
 const FCHOC = <P extends object>(WrappedComponent: React.ComponentType<P>): React.FC<P> => {
