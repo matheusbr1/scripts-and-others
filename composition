@@ -1,0 +1,45 @@
+const simulation = {
+  _data: {},
+  get data() { return _data },
+  set data(initialData) { this._data = initialData },
+  steps: {
+    prepareData (data) {
+      console.log('Prepating data...')
+      return data
+    },  
+    makeRequest (data) {
+      console.log('Doing a request...')
+      return { ...data, installment: 123123 }
+    },
+    setDueDate (data) {
+      console.log('Setting due date...')
+      return { ...data, dueDate: new Date() }
+    },
+    setSomething(data) {
+      console.log('Setting something...')
+      return data
+    },
+    showAllData(data) {
+      console.log(data)
+    }
+  },
+  simulate (...fns) {
+    return fns.reduce((acc, fn) => {
+      return fn(acc)
+    }, this._data)
+  },
+  runAllStepts() {
+    this.simulate(
+      this.steps.prepareData,
+      this.steps.makeRequest,
+      this.steps.setDueDate,
+      this.steps.setSomething,
+      this.steps.showAllData
+    )
+  }
+}
+
+simulation.simulate(
+  simulation.steps.prepareData,
+  simulation.steps.setSomething,
+)
